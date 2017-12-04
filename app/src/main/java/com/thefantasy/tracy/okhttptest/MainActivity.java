@@ -33,7 +33,7 @@ public JSONArray jary;
 public JSONObject jobj;
 public String data;
 /*public String url="https://raw.githubusercontent.com/tracygipson/TheFantasy/master/TestImages.JSON";*/
-private String[] imagesurls = new String[100];
+public String[] imagesurls = new String[100];
 ArrayList<String> imgs;
 
 
@@ -69,6 +69,9 @@ ArrayList<String> imgs;
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                        data = response.body().string()/*.string()*/;
+                        if (data != null && data.length() > 0) {
+                        System.out.println("yahooo");
+                        }
                        System.out.println(data);
                     }
                 });
@@ -77,21 +80,22 @@ ArrayList<String> imgs;
 
         @Override
         protected void onPostExecute(String result){
-                try {
 
-                    jobj = new JSONObject(result);
-                    jary = jobj.getJSONArray("tracy");
-                    System.out.println(jary);
-                    for (int i =0;i<jary.length();i++){
-                        imagesurls[i] = jary.getString(i);
+            try {
+                jobj = new JSONObject(result);
+                jary = jobj.getJSONArray("tracy");
+                System.out.println(jary);
+                for (int i =0;i<jary.length();i++){
+
                         scr.setText(imagesurls[i]);
                         System.out.println(imagesurls[i]);
-                    }
+                    }}
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            catch (JSONException e) {
+                e.printStackTrace();
         }
+
+                 }
      }
 }
 
